@@ -14,7 +14,7 @@ import sys
 from gevent import monkey
 monkey.patch_all()
 from lib.controller.engine import run
-from lib.core.common import banner, outputscreen, setPaths
+from lib.core.common import outputscreen, setPaths
 from lib.core.data import cmdLineOptions, conf, paths
 from lib.core.option import initOptions
 from lib.parse.cmdline import cmdLineParser
@@ -30,8 +30,7 @@ def main():
     if sys.version_info < (3, 8):
         outputscreen.error("Sorry, dirmap requires Python 3.8 or higher\n")
         sys.exit(1)
-    # anyway output thr banner information
-    banner() 
+   
 
     # set paths of project 
     paths.ROOT_PATH = os.getcwd() 

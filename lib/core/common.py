@@ -16,7 +16,6 @@ import re
 
 from lib.core.data import cmdLineOptions, conf, paths, payloads
 from lib.core.enums import COLOR
-from lib.core.setting import BANNER
 from thirdlib.colorama import Back, Fore, Style, init
 
 init(autoreset=True)
@@ -72,13 +71,6 @@ def setPaths():
     #print(root_path,paths.DATA_PATH,paths.SCRIPT_PATH,paths.OUTPUT_PATH,paths.CONFIG_PATH)
     #print(paths.WEAK_PASS,paths.LARGE_WEAK_PASS,paths.UA_LIST_PATH)
 
-def banner():
-    '''
-    @description: Print banner
-    @param {type}
-    @return:
-    '''
-    outputscreen.blue(BANNER)
 
 # Decompose '192.168.1.1-192.168.1.100' into IP address list
 def genIP(ip_range):
