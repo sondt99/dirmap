@@ -161,17 +161,14 @@ def recursiveScan(response_url,all_payloads):
         #判断是否排除。若在排除的目录列表中，则排除。self.excludeSubdirs排除的列表，配置文件中，形如:/test、/test1
         if payload in [directory for directory in conf.exclude_subdirs]:
             return
-        #payload拼接，处理/重复或缺失
-        if response_url.endswith('/') and payload.startswith('/'):
-            # /重复，url和payload都有/，删去payload的/前缀
-            payload = payload[1:]
-        elif (not response_url.endswith('/')) and (not payload.startswith('/')):
-            # /缺失，url和payload都不包含/，在payload前追加/
-            payload = '/'+payload
-        #拼接payload，限制url长度，入队tasks
-        newpayload=response_url+payload
+        #使用urljoin正确处理URL拼接，避免双斜杠问题
+        #确保response_url以/结尾，然后使用urljoin
+        if not response_url.endswith('/'):
+            response_url = response_url + '/'
+        #使用urljoin来拼接URL，它会自动处理斜杠问题
+        newpayload = urllib.parse.urljoin(response_url, payload.lstrip('/'))
         if(len(newpayload) < int(conf.recursive_scan_max_url_length)):
-            tasks.all_task.put(response_url + payload)
+            tasks.all_task.put(newpayload)
 
 def loadSingleDict(path):
     '''
@@ -253,7 +250,11 @@ def generateCrawlDict(base_url):
 
     final_urls = list()
     for each in payloads.suffix:
-        new_filename = path + '/' + each.replace('{FULL}', filename)
+        #使用urljoin来正确处理路径拼接，避免双斜杠问题
+        #确保path以/结尾
+        if not path.endswith('/'):
+            path = path + '/'
+        new_filename = urllib.parse.urljoin(path, each.replace('{FULL}', filename).lstrip('/'))
         if isfile:
             new_filename = new_filename.replace('{NAME}', name).replace('{EXT}', extension)
         else:
@@ -594,9 +595,12 @@ def bruter(url):
     for payload in payloads.all_payloads:
         #FIXME:添加fuzz模式时，引入的url_payload构造判断
         if conf.fuzz_mode:
-            url_payload = conf.parsed_url.scheme + '://' + conf.parsed_url.netloc + payload
+            # 使用urljoin来正确处理URL拼接，避免双斜杠问题
+            base_url = conf.parsed_url.scheme + '://' + conf.parsed_url.netloc + '/'
+            url_payload = urllib.parse.urljoin(base_url, payload.lstrip('/'))
         else:
-            url_payload = url + payload
+            # 使用urljoin来正确处理URL拼接，避免双斜杠问题
+            url_payload = urllib.parse.urljoin(url, payload.lstrip('/'))
         #payload入队，等待处理
         tasks.all_task.put(url_payload)
     #设置进度条长度，若是递归模式或爬虫模式，则不设置任务队列长度，即无法显示进度，仅显示耗时

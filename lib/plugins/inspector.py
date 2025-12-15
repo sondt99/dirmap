@@ -44,7 +44,8 @@ class Inspector:
             random.seed()
             s.append(chr(random.randrange(97, 122)))
         s = "".join(s)
-        target = self.target + s
+        #使用urljoin来正确处理URL拼接，避免双斜杠问题
+        target = urllib.parse.urljoin(self.target, s)
 
         outputscreen.success("[+] Checking with: {}".format(target))
 
