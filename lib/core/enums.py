@@ -1,12 +1,6 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
-'''
-@Author: xxlin
-@LastEditors: xxlin
-@Date: 2019-04-10 13:27:58
-@LastEditTime: 2019-04-14 10:36:27
-'''
 
 class COLOR:
     black = 30  #  black

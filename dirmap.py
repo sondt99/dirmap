@@ -1,13 +1,6 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
-'''
-@Author: xxlin
-@LastEditors: xxlin
-@Date: 2019-04-10 13:27:59
-@LastEditTime: 2023-07-25 15:56:04
-'''
-
 import os
 import sys
 

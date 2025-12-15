@@ -1,12 +1,6 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
-'''
-@Author: xxlin
-@LastEditors: xxlin
-@Date: 2019-04-10 13:27:58
-@LastEditTime: 2019-04-10 17:46:40
-'''
 
 from lib.core.datatype import AttribDict
 

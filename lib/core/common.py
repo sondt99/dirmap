@@ -1,12 +1,6 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
-'''
-@Author: xxlin
-@LastEditors: sondt99
-@Date: 2019-04-10 13:27:58
-@LastEditTime: 2021-08-20 09:31:22 (GMT+7)
-'''
 
 import os.path
 import sys

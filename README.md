@@ -1,9 +1,3 @@
-<!--
- * @Author: xxlin
- * @Date: 2019-04-11 20:34:14
- * @LastEditors: ttttmr
- * @LastEditTime: 2019-06-03 23:49:33
- -->
 # Dirmap
 
 [English](./README_EN.md)
@@ -51,7 +45,7 @@ So let's take a look at Dirmap's **features**
 ## Environment Setup
 
 ```shell
-git clone https://github.com/H4ckForJob/dirmap.git && cd dirmap && python3 -m pip install -r requirement.txt
+git clone <repository-url> && cd dirmap && python3 -m pip install -r requirement.txt
 ```
 
 ## Quick Start
@@ -314,7 +308,6 @@ conf.update = 0
 
 # Star History
 
-[![Star History Chart](https://api.star-history.com/svg?repos=H4ckForJob/dirmap&type=Date)](https://star-history.com/#H4ckForJob/dirmap&Date)
 
 # Contributing
 

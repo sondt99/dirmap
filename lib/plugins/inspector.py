@@ -1,12 +1,6 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
-'''
-@Author: xxlin
-@LastEditors: ttttmr
-@Date: 2019-05-01 12:07:54
-@LastEditTime: 2019-06-26 00:25:14
-'''
 
 import hashlib
 import random

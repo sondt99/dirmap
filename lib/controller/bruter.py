@@ -1,13 +1,6 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
-'''
-@Author: xxlin
-@LastEditors: xxlin
-@Date: 2019-03-14 09:49:05
-@LastEditTime: 2023-07-25 16:32:33
-'''
-
 import ast
 import hashlib
 import os
