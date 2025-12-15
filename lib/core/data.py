@@ -23,11 +23,11 @@ conf = AttribDict()
 # object to control engine 
 th = AttribDict()
 
-#创建payloads字典对象存储payloads
+# Create payloads dictionary object to store payloads
 payloads = AttribDict()
 
-#创建tasks字典对象存储tasks
+# Create tasks dictionary object to store tasks
 tasks = AttribDict()
 
-#创建进度条对象存储进度
+# Create progress bar object to store progress
 bar = AttribDict()

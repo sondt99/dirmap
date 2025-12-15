@@ -6,7 +6,7 @@
  -->
 # Dirmap
 
-[中文](./README.md)
+[Chinese](./README.md)
 
 An advanced web directory scanning tool that will be more powerful than DirBuster, Dirsearch, cansina, and Yu Jian
 
