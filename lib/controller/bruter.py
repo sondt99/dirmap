@@ -8,7 +8,7 @@
 @LastEditTime: 2023-07-25 16:32:33
 '''
 
-import configparser
+import ast
 import hashlib
 import os
 import random
@@ -74,6 +74,18 @@ def saveResults(domain,msg):
         else:
             result_file.write(msg+'\n')
 
+def _safe_eval(config_string):
+    """
+    Safely evaluate configuration values.
+    Uses ast.literal_eval for security, with fallback to string values.
+    """
+    if not config_string:
+        return ""
+    try:
+        return ast.literal_eval(config_string)
+    except (ValueError, SyntaxError):
+        return config_string
+
 def loadConf():
     '''
     @description: 加载扫描配置(以后将使用参数，而非从文件加载)
@@ -81,57 +93,57 @@ def loadConf():
     @return:
     '''
 
-    conf.recursive_scan = eval(ConfigFileParser().recursive_scan())
-    conf.recursive_scan_max_url_length = eval(ConfigFileParser().recursive_scan_max_url_length())
-    conf.recursive_status_code = eval(ConfigFileParser().recursive_status_code())
-    conf.recursive_blacklist_exts = eval(ConfigFileParser().recursive_blacklist_exts())
-    conf.exclude_subdirs = eval(ConfigFileParser().exclude_subdirs())
+    conf.recursive_scan = _safe_eval(ConfigFileParser().recursive_scan())
+    conf.recursive_scan_max_url_length = _safe_eval(ConfigFileParser().recursive_scan_max_url_length())
+    conf.recursive_status_code = _safe_eval(ConfigFileParser().recursive_status_code())
+    conf.recursive_blacklist_exts = _safe_eval(ConfigFileParser().recursive_blacklist_exts())
+    conf.exclude_subdirs = _safe_eval(ConfigFileParser().exclude_subdirs())
 
-    conf.dict_mode = eval(ConfigFileParser().dict_mode())
-    conf.dict_mode_load_single_dict = os.path.join(paths.DATA_PATH,eval(ConfigFileParser().dict_mode_load_single_dict()))
-    conf.dict_mode_load_mult_dict = os.path.join(paths.DATA_PATH,eval(ConfigFileParser().dict_mode_load_mult_dict()))
-    conf.blast_mode = eval(ConfigFileParser().blast_mode())
-    conf.blast_mode_min = eval(ConfigFileParser().blast_mode_min())
-    conf.blast_mode_max = eval(ConfigFileParser().blast_mode_max())
-    conf.blast_mode_az = eval(ConfigFileParser().blast_mode_az())
-    conf.blast_mode_num = eval(ConfigFileParser().blast_mode_num())
-    conf.blast_mode_custom_charset = eval(ConfigFileParser().blast_mode_custom_charset())
-    conf.blast_mode_resume_charset = eval(ConfigFileParser().blast_mode_resume_charset())
-    conf.crawl_mode = eval(ConfigFileParser().crawl_mode())
-    conf.crawl_mode_dynamic_fuzz_suffix = eval(ConfigFileParser().crawl_mode_dynamic_fuzz_suffix())
-    conf.crawl_mode_parse_robots = eval(ConfigFileParser().crawl_mode_parse_robots())
-    conf.crawl_mode_parse_html = eval(ConfigFileParser().crawl_mode_parse_html())
-    conf.crawl_mode_dynamic_fuzz = eval(ConfigFileParser().crawl_mode_dynamic_fuzz())
-    conf.fuzz_mode = eval(ConfigFileParser().fuzz_mode())
-    conf.fuzz_mode_load_single_dict = os.path.join(paths.DATA_PATH,eval(ConfigFileParser().fuzz_mode_load_single_dict()))
-    conf.fuzz_mode_load_mult_dict = os.path.join(paths.DATA_PATH,eval(ConfigFileParser().fuzz_mode_load_mult_dict()))
-    conf.fuzz_mode_label = eval(ConfigFileParser().fuzz_mode_label())
+    conf.dict_mode = _safe_eval(ConfigFileParser().dict_mode())
+    conf.dict_mode_load_single_dict = os.path.join(paths.DATA_PATH,_safe_eval(ConfigFileParser().dict_mode_load_single_dict()))
+    conf.dict_mode_load_mult_dict = os.path.join(paths.DATA_PATH,_safe_eval(ConfigFileParser().dict_mode_load_mult_dict()))
+    conf.blast_mode = _safe_eval(ConfigFileParser().blast_mode())
+    conf.blast_mode_min = _safe_eval(ConfigFileParser().blast_mode_min())
+    conf.blast_mode_max = _safe_eval(ConfigFileParser().blast_mode_max())
+    conf.blast_mode_az = _safe_eval(ConfigFileParser().blast_mode_az())
+    conf.blast_mode_num = _safe_eval(ConfigFileParser().blast_mode_num())
+    conf.blast_mode_custom_charset = _safe_eval(ConfigFileParser().blast_mode_custom_charset())
+    conf.blast_mode_resume_charset = _safe_eval(ConfigFileParser().blast_mode_resume_charset())
+    conf.crawl_mode = _safe_eval(ConfigFileParser().crawl_mode())
+    conf.crawl_mode_dynamic_fuzz_suffix = _safe_eval(ConfigFileParser().crawl_mode_dynamic_fuzz_suffix())
+    conf.crawl_mode_parse_robots = _safe_eval(ConfigFileParser().crawl_mode_parse_robots())
+    conf.crawl_mode_parse_html = _safe_eval(ConfigFileParser().crawl_mode_parse_html())
+    conf.crawl_mode_dynamic_fuzz = _safe_eval(ConfigFileParser().crawl_mode_dynamic_fuzz())
+    conf.fuzz_mode = _safe_eval(ConfigFileParser().fuzz_mode())
+    conf.fuzz_mode_load_single_dict = os.path.join(paths.DATA_PATH,_safe_eval(ConfigFileParser().fuzz_mode_load_single_dict()))
+    conf.fuzz_mode_load_mult_dict = os.path.join(paths.DATA_PATH,_safe_eval(ConfigFileParser().fuzz_mode_load_mult_dict()))
+    conf.fuzz_mode_label = _safe_eval(ConfigFileParser().fuzz_mode_label())
 
-    conf.request_headers = eval(ConfigFileParser().request_headers())
-    conf.request_header_ua = eval(ConfigFileParser().request_header_ua())
-    conf.request_header_cookie = eval(ConfigFileParser().request_header_cookie())
-    conf.request_header_401_auth = eval(ConfigFileParser().request_header_401_auth())
-    conf.request_timeout = eval(ConfigFileParser().request_timeout())
-    conf.request_delay = eval(ConfigFileParser().request_delay())
-    conf.request_limit = eval(ConfigFileParser().request_limit())
-    conf.request_max_retries = eval(ConfigFileParser().request_max_retries())
-    conf.request_persistent_connect = eval(ConfigFileParser().request_persistent_connect())
-    conf.request_method = eval(ConfigFileParser().request_method())
-    conf.redirection_302 = eval(ConfigFileParser().redirection_302())
-    conf.file_extension = eval(ConfigFileParser().file_extension())
+    conf.request_headers = _safe_eval(ConfigFileParser().request_headers())
+    conf.request_header_ua = _safe_eval(ConfigFileParser().request_header_ua())
+    conf.request_header_cookie = _safe_eval(ConfigFileParser().request_header_cookie())
+    conf.request_header_401_auth = _safe_eval(ConfigFileParser().request_header_401_auth())
+    conf.request_timeout = _safe_eval(ConfigFileParser().request_timeout())
+    conf.request_delay = _safe_eval(ConfigFileParser().request_delay())
+    conf.request_limit = _safe_eval(ConfigFileParser().request_limit())
+    conf.request_max_retries = _safe_eval(ConfigFileParser().request_max_retries())
+    conf.request_persistent_connect = _safe_eval(ConfigFileParser().request_persistent_connect())
+    conf.request_method = _safe_eval(ConfigFileParser().request_method())
+    conf.redirection_302 = _safe_eval(ConfigFileParser().redirection_302())
+    conf.file_extension = _safe_eval(ConfigFileParser().file_extension())
 
-    conf.response_status_code = eval(ConfigFileParser().response_status_code())
-    conf.response_header_content_type = eval(ConfigFileParser().response_header_content_type())
-    conf.response_size = eval(ConfigFileParser().response_size())
-    conf.auto_check_404_page = eval(ConfigFileParser().auto_check_404_page())
-    conf.custom_503_page = eval(ConfigFileParser().custom_503_page())
-    conf.custom_response_page = eval(ConfigFileParser().custom_response_page())
-    conf.skip_size = eval(ConfigFileParser().skip_size())
+    conf.response_status_code = _safe_eval(ConfigFileParser().response_status_code())
+    conf.response_header_content_type = _safe_eval(ConfigFileParser().response_header_content_type())
+    conf.response_size = _safe_eval(ConfigFileParser().response_size())
+    conf.auto_check_404_page = _safe_eval(ConfigFileParser().auto_check_404_page())
+    conf.custom_503_page = _safe_eval(ConfigFileParser().custom_503_page())
+    conf.custom_response_page = _safe_eval(ConfigFileParser().custom_response_page())
+    conf.skip_size = _safe_eval(ConfigFileParser().skip_size())
 
-    conf.proxy_server = eval(ConfigFileParser().proxy_server())
+    conf.proxy_server = _safe_eval(ConfigFileParser().proxy_server())
 
-    conf.debug = eval(ConfigFileParser().debug())
-    conf.update = eval(ConfigFileParser().update())
+    conf.debug = _safe_eval(ConfigFileParser().debug())
+    conf.update = _safe_eval(ConfigFileParser().update())
 
 def recursiveScan(response_url,all_payloads):
     '''
@@ -383,12 +395,10 @@ def scanModeHandler():
             if conf.request_headers:
                 try:
                     for header in conf.request_headers.split(','):
-                        k, v = header.split('=')
-                        #print(k,v)
-                        headers[k] = v
+                        key, value = header.split('=')
+                        headers[key] = value
                 except Exception as e:
                     outputscreen.error("[x] Check personalized headers format: header=value,header=value.\n[x] error:{}".format(e))
-                    # sys.exit()
             #自定义ua
             if conf.request_header_ua:
                 headers['User-Agent'] = conf.request_header_ua
@@ -424,7 +434,6 @@ def scanModeHandler():
                     payloadlists.extend(set(payloads.crawl_mode_dynamic_fuzz_dict))
             except (requests.exceptions.ConnectionError, requests.exceptions.Timeout, requests.exceptions.ReadTimeout) as e:
                 outputscreen.error("[x] Crawler network connection error!plz check whether the target is accessible, error info:{}".format(e))
-                # sys.exit()
 
     if payloadlists:
         return payloadlists
@@ -495,9 +504,8 @@ def worker():
     if conf.request_headers:
         try:
             for header in conf.request_headers.split(','):
-                k, v = header.split('=')
-                #print(k,v)
-                headers[k] = v
+                key, value = header.split('=')
+                headers[key] = value
         except Exception as e:
             outputscreen.error("[x] Check personalized headers format: header=value,header=value.\n[x] error:{}".format(e))
             sys.exit()
@@ -529,12 +537,10 @@ def worker():
         tasks.task_count += 1
         bar.log.update(tasks.task_count)
 
-def boss():
-    '''
-    @description: worker控制器
-    @param {type}
-    @return:
-    '''
+def task_dispatcher():
+    """
+    Worker controller that dispatches tasks to workers.
+    """
     while not tasks.all_task.empty():
         worker()
 
@@ -575,11 +581,11 @@ def bruter(url):
     try:
         if conf.file_extension:
             outputscreen.warning('[+] Use file extentsion: {}'.format(conf.file_extension))
-            for i in range(len(payloads.all_payloads)):
-                payloads.all_payloads[i] += conf.file_extension
-    except:
-        outputscreen.error('[+] plz check extension!')
-        sys.exit()
+            for idx in range(len(payloads.all_payloads)):
+                payloads.all_payloads[idx] += conf.file_extension
+    except (AttributeError, TypeError) as e:
+        outputscreen.error(f'[+] Please check extension configuration: {e}')
+        sys.exit(1)
     #debug模式，打印所有payload，并退出
     if conf.debug:
         outputscreen.blue('[+] all payloads:{}'.format(payloads.all_payloads))
@@ -591,7 +597,6 @@ def bruter(url):
             url_payload = conf.parsed_url.scheme + '://' + conf.parsed_url.netloc + payload
         else:
             url_payload = url + payload
-        #print(url_payload)
         #payload入队，等待处理
         tasks.all_task.put(url_payload)
     #设置进度条长度，若是递归模式或爬虫模式，则不设置任务队列长度，即无法显示进度，仅显示耗时
@@ -601,5 +606,5 @@ def bruter(url):
         bar.log.start(tasks.task_length)
     #FIXME:循环任务数不能一次性取完所有的task，暂时采用每次执行30个任务。这样写还能解决hub.LoopExit的bug
     while not tasks.all_task.empty():
-        all_task = [gevent.spawn(boss) for i in range(conf.request_limit)]
+        all_task = [gevent.spawn(task_dispatcher) for _ in range(conf.request_limit)]
         gevent.joinall(all_task)

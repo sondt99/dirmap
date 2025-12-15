@@ -99,7 +99,7 @@ def genIP(ip_range):
 
 # 识别目标，转换成列表形式
 def parseTarget(target):
-    lists=[]
+    targets=[]
     ipv4withmask_re = re.compile(r"^(25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9])\.(25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9])\.(25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9])\.(25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9])/(3[0-2]|[1-2]?[0-9])$")
     ipv4range_re   = re.compile(r"^(25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9])\.(25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9])\.(25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9])\.(25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9])-(25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9])\.(25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9])\.(25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9])\.(25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9])$")
     try:
@@ -115,23 +115,23 @@ def parseTarget(target):
                 flag =input()
                 if flag in ('N', 'n', 'no', 'No', 'NO'):
                     # 按链接处理 e.g. http://192.168.1.1/24
-                    lists.append(target)
+                    targets.append(target)
                 else:
                     # 按子网处理 e.g. 192.168.1.1/24
-                    lists=list(ipaddress.ip_interface(target).network)
+                    targets=list(ipaddress.ip_interface(target).network)
             # 判断网络范围格式 e.g. 192.168.1.1-192.168.1.100
             elif ipv4range_re.search(target):
-                lists=genIP(target)
+                targets=genIP(target)
             # 按照链接处理
             else:
-                lists.append(target)
+                targets.append(target)
         # 为http://格式
         else:
-            lists.append(target)
+            targets.append(target)
     except:
         # 识别失败
         pass
-    return lists
+    return targets
 
 def intToSize(bytes):
     '''

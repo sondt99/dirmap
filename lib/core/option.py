@@ -9,9 +9,9 @@
 '''
 
 import os
-import queue
 import sys
 
+from gevent.queue import Queue
 from lib.controller.bruter import loadConf
 from lib.core.common import parseTarget, outputscreen
 from lib.core.data import conf
@@ -47,7 +47,8 @@ def BruterRegister(args):
 def TargetRegister(args):
     outputscreen.warning("[*] Initialize targets...")
 
-    queue.Queue()
+    # Initialize target queue
+    conf.target = Queue()
 
     target_input = getattr(args, "target_input", None)
     if target_input:

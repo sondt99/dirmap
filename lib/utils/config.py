@@ -20,8 +20,8 @@ class ConfigFileParser:
             cf = ConfigParser()
             cf.read(paths.CONFIG_PATH)
             return cf.get(section=section, option=option)
-        except:
-            outputscreen.warning('Missing essential options, please check your config-file.')
+        except Exception as e:
+            outputscreen.warning(f'Missing essential options, please check your config-file: {e}')
             return ''
 
 
